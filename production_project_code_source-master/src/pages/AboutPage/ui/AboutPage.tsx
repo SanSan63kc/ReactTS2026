@@ -1,9 +1,11 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 const AboutPage = () => {
+    let {t} = useTranslation("about")
     return (
         <div>
-            ABOUT PAGE
+            {t("О сайте")}
         </div>
     );
 };
