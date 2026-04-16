@@ -5,8 +5,6 @@ import { AppRouter } from "./providers/router"
 import { Navbar } from "widgets/Navbar"
 import { Sidebar } from "widgets/Sidebar"
 import { Suspense } from "react"
-import { LangSwitcher } from "shared/ui/LangSwitcher"
-
 
 const App = () => {
   let { theme, toggleTheme } = useTheme()
@@ -17,7 +15,7 @@ const App = () => {
         <Navbar />
         <div className="content-page">
           <Sidebar />
-          <AppRouter />        
+          <AppRouter />
         </div>
       </Suspense>
     </div>
