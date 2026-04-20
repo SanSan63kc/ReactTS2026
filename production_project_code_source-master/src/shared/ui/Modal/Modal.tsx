@@ -1,6 +1,13 @@
 import { classNames } from "shared/lib/classNames/classNames"
 import cls from "./Modal.module.scss"
-import React, { ReactNode, useCallback, useEffect, useRef, useState } from "react"
+import React, {
+  ReactNode,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react"
+import { Portal } from "../Portal/Portal"
 
 interface ModalProps {
   className?: string
@@ -27,23 +34,26 @@ export const Modal = (props: ModalProps) => {
     }
   }, [onClose])
 
-  let onKeyDown = useCallback((e:KeyboardEvent) =>{
-    if(e.key == "Escape"){
+  let onKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key == "Escape") {
         closeHandler()
-    }
-  }, [closeHandler])
+      }
+    },
+    [closeHandler],
+  )
 
   let onContentClick = (e: React.MouseEvent) => {
     e.stopPropagation()
   }
 
-  useEffect(()=>{
-    if (isOpen){
-        window.addEventListener("keydown", onKeyDown)
+  useEffect(() => {
+    if (isOpen) {
+      window.addEventListener("keydown", onKeyDown)
     }
-    return ()=>{
-        clearTimeout(timerRef.current)
-        window.removeEventListener("keydown", onKeyDown)
+    return () => {
+      clearTimeout(timerRef.current)
+      window.removeEventListener("keydown", onKeyDown)
     }
   }, [isOpen, onKeyDown])
 
@@ -52,12 +62,14 @@ export const Modal = (props: ModalProps) => {
     [cls.isClosing]: isClosing,
   }
   return (
-    <div className={classNames(cls.modal, mods, [className || ""])}>
-      <div className={cls.overlay} onClick={closeHandler}>
-        <div className={cls.content} onClick={onContentClick}>
-          Некий очень сильно большой текст{children}
+    <Portal>
+      <div className={classNames(cls.modal, mods, [className || ""])}>
+        <div className={cls.overlay} onClick={closeHandler}>
+          <div className={cls.content} onClick={onContentClick}>
+            Некий очень сильно большой текст{children}
+          </div>
         </div>
       </div>
-    </div>
+    </Portal>
   )
 }
