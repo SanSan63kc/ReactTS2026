@@ -8,6 +8,7 @@ import React, {
   useState,
 } from "react"
 import { Portal } from "../Portal/Portal"
+import { useTheme } from "app/providers/ThemeProviders"
 
 interface ModalProps {
   className?: string
@@ -23,6 +24,7 @@ export const Modal = (props: ModalProps) => {
 
   let [isClosing, setIsClosing] = useState(false)
   let timerRef = useRef<ReturnType<typeof setTimeout>>()
+  let { theme } = useTheme()
 
   let closeHandler = useCallback(() => {
     if (onClose) {
@@ -60,16 +62,17 @@ export const Modal = (props: ModalProps) => {
   let mods: Record<string, boolean> = {
     [cls.opened]: isOpen,
     [cls.isClosing]: isClosing,
+    [cls[theme]]: true,
   }
   return (
-    <Portal>
-      <div className={classNames(cls.modal, mods, [className || ""])}>
-        <div className={cls.overlay} onClick={closeHandler}>
-          <div className={cls.content} onClick={onContentClick}>
-            Некий очень сильно большой текст{children}
-          </div>
+    /*  <Portal> */
+    <div className={classNames(cls.modal, mods, [className || ""])}>
+      <div className={cls.overlay} onClick={closeHandler}>
+        <div className={cls.content} onClick={onContentClick}>
+          Некий очень сильно большой текст{children}
         </div>
       </div>
-    </Portal>
+    </div>
+    /* </Portal> */
   )
 }
