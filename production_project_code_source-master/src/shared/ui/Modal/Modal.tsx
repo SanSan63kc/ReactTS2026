@@ -7,7 +7,7 @@ import React, {
   useRef,
   useState,
 } from "react"
-import { Portal } from "../Portal/Portal"
+//import { Portal } from "../Portal/Portal"
 import { useTheme } from "app/providers/ThemeProviders"
 
 interface ModalProps {
@@ -62,7 +62,6 @@ export const Modal = (props: ModalProps) => {
   let mods: Record<string, boolean> = {
     [cls.opened]: isOpen,
     [cls.isClosing]: isClosing,
-    [cls[theme]]: true,
   }
   return (
     /*  <Portal> */

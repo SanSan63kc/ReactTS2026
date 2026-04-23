@@ -13,7 +13,7 @@ const App = () => {
   /* let [isOpen, setIsOpen] = useState(false) */
 
   return (
-    <div className={classNames("app", {}, [theme])}>
+    <div className={classNames("app", {}, [])}>
       <Suspense fallback="">
         <Navbar />
         <div className="content-page">
