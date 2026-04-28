@@ -8,8 +8,8 @@ import { memo, useCallback } from "react"
 import { getLoginState } from "features/AuthByUserName/model/selectors/getLoginState/getLoginState"
 import { loginActions } from "features/AuthByUserName/model/slice/loginSlice"
 import { loginByUsername } from "features/AuthByUserName/model/services/loginByUsername/loginByUsername"
-import { AppDispatch } from '../../../../../src/app/providers/StoreProvider/config/store'; // проверь путь
-
+import { AppDispatch } from "../../../../../src/app/providers/StoreProvider/config/store" // проверь путь
+import { Text, TextTheme } from "shared/ui/Text/Text"
 
 interface LoginFormProps {
   className?: string
@@ -17,8 +17,8 @@ interface LoginFormProps {
 
 export const LoginForm = memo(({ className }: LoginFormProps) => {
   let { t } = useTranslation()
-  const dispatch = useDispatch<AppDispatch>(); 
-  let { username, password } = useSelector(getLoginState)
+  const dispatch = useDispatch<AppDispatch>()
+  let { username, password, error, isLoading } = useSelector(getLoginState)
 
   let onChangeUsername = useCallback(
     (value: string) => {
@@ -38,9 +38,10 @@ export const LoginForm = memo(({ className }: LoginFormProps) => {
     dispatch(loginByUsername({ username, password }))
   }, [dispatch, password, username])
 
-
   return (
     <div className={classNames(cls.loginform, {}, [className || ""])}>
+      <Text title={t("Форма авторизации")}/>
+      {error && <Text text={error} theme={TextTheme.ERROR}/>}
       <Input
         type="text"
         className={cls.input}
@@ -60,6 +61,7 @@ export const LoginForm = memo(({ className }: LoginFormProps) => {
         className={cls.loginBtn}
         theme={ButtonTheme.OUTLINE}
         onClick={onLoginClick}
+        disabled={isLoading}
       >
         {t("Войти")}
       </Button>
