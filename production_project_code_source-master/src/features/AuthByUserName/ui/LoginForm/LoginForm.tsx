@@ -7,6 +7,9 @@ import { useDispatch, useSelector } from "react-redux"
 import { memo, useCallback } from "react"
 import { getLoginState } from "features/AuthByUserName/model/selectors/getLoginState/getLoginState"
 import { loginActions } from "features/AuthByUserName/model/slice/loginSlice"
+import { loginByUsername } from "features/AuthByUserName/model/services/loginByUsername/loginByUsername"
+import { AppDispatch } from '../../../../../src/app/providers/StoreProvider/config/store'; // проверь путь
+
 
 interface LoginFormProps {
   className?: string
@@ -14,7 +17,7 @@ interface LoginFormProps {
 
 export const LoginForm = memo(({ className }: LoginFormProps) => {
   let { t } = useTranslation()
-  let dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>(); 
   let { username, password } = useSelector(getLoginState)
 
   let onChangeUsername = useCallback(
@@ -30,6 +33,11 @@ export const LoginForm = memo(({ className }: LoginFormProps) => {
     },
     [dispatch],
   )
+
+  const onLoginClick = useCallback(() => {
+    dispatch(loginByUsername({ username, password }))
+  }, [dispatch, password, username])
+
 
   return (
     <div className={classNames(cls.loginform, {}, [className || ""])}>
@@ -48,7 +56,11 @@ export const LoginForm = memo(({ className }: LoginFormProps) => {
         onChange={onChangePassword}
         value={password}
       />
-      <Button className={cls.loginBtn} theme={ButtonTheme.OUTLINE}>
+      <Button
+        className={cls.loginBtn}
+        theme={ButtonTheme.OUTLINE}
+        onClick={onLoginClick}
+      >
         {t("Войти")}
       </Button>
     </div>
