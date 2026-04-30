@@ -54,7 +54,17 @@ export function buildLoaders({ isDev }: BuildOptions): webpack.RuleSetRule[] {
           },
         },
       },
-      "sass-loader",
+      // ЗАМЕНИЛИ СТРОКУ "sass-loader" НА ОБЪЕКТ:
+      {
+        loader: "sass-loader",
+        options: {
+          api: "modern", // Это отключит предупреждения о Legacy API
+          sassOptions: {
+            // Это заглушит предупреждения о старых @import, пока ты их не перепишешь на @use
+            silenceDeprecations: ["import"],
+          },
+        },
+      },
     ],
   }
 

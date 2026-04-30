@@ -39,7 +39,7 @@ export let Button: FC<ButtonProps> = (props) => {
     [cls[theme!]]: !!theme,
     [cls.square]: !!square,
     [cls[size]]: true,
-    [cls.disabled]: disabled,
+    [cls.disabled]: !!disabled,
   }
 
   return (
