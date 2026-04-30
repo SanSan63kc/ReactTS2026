@@ -6,20 +6,34 @@ import {
 import { FC, useEffect } from "react"
 import { useStore } from "react-redux"
 
+export type ReducersList = {
+  [name in StateSchemaKey]?: Reducer
+}
+
+type ReducersListEntry = [StateSchemaKey, Reducer]
+
 interface DynamicModuleLoaderProps {
-  key: StateSchemaKey
-  reducer: Reducer
+  reducers: ReducersList
+  removeAfterUnmount?: boolean
 }
 
 export const DynamicModuleLoader: FC<DynamicModuleLoaderProps> = (props) => {
-  let { children, name, reducer } = props
+  let { children, reducers, removeAfterUnmount } = props
   let store = useStore() as ReduxStoreWithmanager
 
   useEffect(() => {
-    store.reducerManager.add(name, reducer)
+    Object.entries(reducers).forEach(([name, reducer]: ReducersListEntry) => {
+      store.reducerManager.add(name, reducer)
+    })
 
     return () => {
-      store.reducerManager.remove(name)
+      if (removeAfterUnmount) {
+        Object.entries(reducers).forEach(
+          ([name, reducer]: ReducersListEntry) => {
+            store.reducerManager.remove(name)
+          },
+        )
+      }
     }
   }, [])
 
