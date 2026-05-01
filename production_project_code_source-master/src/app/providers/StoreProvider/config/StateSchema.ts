@@ -16,9 +16,17 @@ export interface ReduxStoreWithmanager extends EnhancedStore<StateSchema> {
   reducerManager: ReducerManager
 }
 
-export interface ReducerManager{
+/* export interface ReducerManager{
   getReducerMap: ()=> ReducersMapObject<StateSchema>
   reduce: (state: StateSchema, action:UnknownAction)=>CombinedSliceReducer<StateSchema>
   add: (key: StateSchemaKey, reducer: Reducer) => void
   remove: (key: StateSchemaKey) => void
+} */
+
+export interface ReducerManager {
+  getReducerMap: () => ReducersMapObject<StateSchema>;
+  // Метод reduce должен возвращать просто состояние (StateSchema), а не CombinedSliceReducer
+  reduce: (state: StateSchema, action: UnknownAction) => StateSchema;
+  add: (key: StateSchemaKey, reducer: Reducer) => void;
+  remove: (key: StateSchemaKey) => void;
 }
