@@ -25,5 +25,14 @@
       "password": "123"
     }
   ],
-  "profile": { "name": "typicode" }
+  "profile": {
+    "first": "Александр",
+    "lastname": "Сёмушкин",
+    "age": 35,
+    "currency": "RUB",
+    "country": "Россия",
+    "city": "Новокуйбышевск",
+    "username": "sansan",
+    "avatar": "https://sun9-13.userapi.com/s/v1/ig2/X0rjK4cXUTzJtupymIrx9jehixOjXYn1rVFLxKvW9HjBdLj7t73erBVL-PXGViTTPiR8fu-zJaQPlnSsdU6CjR23.jpg?quality=95&as=32x48,48x72,72x108,108x162,160x240,240x360,360x540,480x720,540x810,640x960,720x1080,1080x1620,1280x1920,1440x2160&from=bu&u=9u9lZftdjgIFN1M8YnOO1zqZxAbazbw0XW_NVatQxqs&cs=1440x0"
+  }
 }

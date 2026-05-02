@@ -3,13 +3,12 @@ import { StateSchema } from "./StateSchema"
 import { counterReducer } from "entities/Counter"
 import { userReducer } from "entities/User"
 import { createReducerManager } from "./reducerManager"
-//import { loginReducer } from "features/AuthByUserName/model/slice/loginSlice"
+import { useDispatch } from "react-redux"
 
 export function createReduxStore(initialState?: StateSchema) {
   const rootReducers: ReducersMapObject<StateSchema> = {
     counter: counterReducer,
-    user: userReducer/* ,
-    loginForm: loginReducer, */
+    user: userReducer
   }
 
   let reducerManager = createReducerManager(rootReducers)
