@@ -28,8 +28,8 @@ export const Modal = (props: ModalProps) => {
   let timerRef = useRef<ReturnType<typeof setTimeout>>()
   let { theme } = useTheme()
 
-  useEffect(()=>{
-    if(isOpen){
+  useEffect(() => {
+    if (isOpen) {
       setIsMounted(true)
     }
   }, [isOpen])
@@ -72,7 +72,7 @@ export const Modal = (props: ModalProps) => {
     [cls.isClosing]: isClosing,
   }
 
-  if (lazy && !isMounted){
+  if (lazy && !isMounted) {
     return null
   }
 
