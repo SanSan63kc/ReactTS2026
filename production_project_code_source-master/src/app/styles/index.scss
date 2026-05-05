@@ -1,9 +1,10 @@
-@import "./variables/global";
 @import "./reset";
+@import "./variables/global";
 @import "./themes/normals";
 @import "./themes/dark";
 
-body {
+.app,
+.app_modal {
   font: var(--font-m);
   color: var(--primary-color);
 }

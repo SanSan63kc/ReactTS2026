@@ -1,9 +1,6 @@
 import { classNames } from "shared/lib/classNames/classNames"
 import cls from "./Navbar.module.scss"
-import { AppLink, AppLinkTheme } from "shared/ui/AppLink/AppLink"
-import { ThemeSwitcher } from "shared/ui/ThemeSwitcher"
 import { useTranslation } from "react-i18next"
-import { Modal } from "shared/ui/Modal/Modal"
 import { Button, ButtonTheme } from "shared/ui/Button/Button"
 import { memo, useCallback, useState } from "react"
 import { LoginModal } from "features/AuthByUserName"
@@ -37,7 +34,7 @@ export let Navbar = memo(({ className }: NavbarProps) => {
     return (
       <div className={classNames(cls.navbar, {}, [className || ""])}>
         <Button
-          theme={ButtonTheme.CLEAR_INVERTED}
+          theme={ButtonTheme.BACKGROUND_INVERTED}
           className={cls.links}
           onClick={onLogout}
         >
