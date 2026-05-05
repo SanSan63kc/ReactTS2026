@@ -1,6 +1,7 @@
 .button {
   cursor: pointer;
   color: var(--primary-color);
+  padding: 6px 15px;
 }
 
 .clear {
@@ -16,6 +17,12 @@
   background: none;
   outline: none;
   color: var(--inverted-primary-color);
+}
+
+.outline {
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    background: none;
 }
 
 .background {
