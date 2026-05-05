@@ -11,8 +11,7 @@ export let fetchProfileData = createAsyncThunk<
   let { extra, rejectWithValue } = thunkApi
 
   try {
-    let response = await extra.api.get<Profile>('/profile');
-
+    let response = await extra.api.get<Profile>("/profile")
     return response.data
   } catch (e) {
     //console.log(e)

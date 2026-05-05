@@ -1,32 +1,45 @@
 import { classNames } from "shared/lib/classNames/classNames"
 import cls from "./ProfileCard.module.scss"
 import { useTranslation } from "react-i18next"
-import { useSelector } from "react-redux"
-import { getProfileData } from "entities/Profile/model/selectors/getProfileData/getProfileData"
-import { getProfileIsLoading } from "entities/Profile/model/selectors/getProfileIsLoading/getProfileIsLoading"
-import { getProfileError } from "entities/Profile/model/selectors/getProfileError/getProfileError"
-import { Text } from "shared/ui/Text/Text"
+import { Text, textAlign, TextTheme } from "shared/ui/Text/Text"
 import { Button, ButtonTheme } from "shared/ui/Button/Button"
 import { Input } from "shared/ui/Input/Input"
+import { Profile } from "entities/Profile/model/types/profile"
+import { Loader } from "shared/ui/Loader/Loader"
 
 interface ProfileCardProps {
   className?: string
+  data?: Profile
+  error?: string
+  isLoading?: boolean
 }
 
-export const ProfileCard = ({ className }: ProfileCardProps) => {
+export const ProfileCard = (props: ProfileCardProps) => {
+  let { className, data, isLoading, error } = props
   let { t } = useTranslation("profile")
-  let data = useSelector(getProfileData)
-  let isLoading = useSelector(getProfileIsLoading)
-  let error = useSelector(getProfileError)
+
+  if (isLoading) {
+    return (
+      <div
+        className={classNames(cls.profileCard, { [cls.loading]: true }, [
+          className,
+        ])}
+      >
+        <Loader />
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className={classNames(cls.profileCard, {}, [className, cls.error])}>
+        <Text theme={TextTheme.ERROR} title={t("Произошла ошибка при загрузке профиля")} text={t("Попробуйте обновить страницу")} align={textAlign.CENTER}/>
+      </div>
+    )
+  }
 
   return (
     <div className={classNames(cls.profileCard, {}, [className])}>
-      <div className={cls.header}>
-        <Text title={t("Профиль пользователя")}></Text>
-        <Button theme={ButtonTheme.OUTLINE} className={cls.editBtn}>
-          {t("Редактировать")}
-        </Button>
-      </div>
       <div className={cls.data}>
         <Input
           value={data?.first}
