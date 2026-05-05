@@ -1,6 +1,7 @@
-import { classNames } from "shared/lib/classNames/classNames"
+import { classNames, Mods } from "shared/lib/classNames/classNames"
 import cls from "./Modal.module.scss"
 import React, {
+  MutableRefObject,
   ReactNode,
   useCallback,
   useEffect,
@@ -25,7 +26,7 @@ export const Modal = (props: ModalProps) => {
 
   let [isClosing, setIsClosing] = useState(false)
   let [isMounted, setIsMounted] = useState(false)
-  let timerRef = useRef<ReturnType<typeof setTimeout>>()
+  let timerRef = useRef() as MutableRefObject<ReturnType<typeof setTimeout>>
   let { theme } = useTheme()
 
   useEffect(() => {
@@ -67,7 +68,7 @@ export const Modal = (props: ModalProps) => {
     }
   }, [isOpen, onKeyDown])
 
-  let mods: Record<string, boolean> = {
+  let mods: Mods = {
     [cls.opened]: isOpen,
     [cls.isClosing]: isClosing,
   }
