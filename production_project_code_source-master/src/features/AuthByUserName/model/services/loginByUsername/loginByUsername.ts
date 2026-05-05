@@ -27,7 +27,8 @@ export let loginByUsername = createAsyncThunk<
     localStorage.setItem(USER_LOCALSTORAGE_KEY, JSON.stringify(response.data))
     dispatch(userActions.setAuthData(response.data))
 
-    extra.navigate!("/about")
+    //extra.navigate!("/about") /* так было по курсу */
+    extra.navigate!("/profile")
 
     return response.data
   } catch (e) {

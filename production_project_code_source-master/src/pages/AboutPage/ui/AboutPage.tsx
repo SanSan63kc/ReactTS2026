@@ -7,7 +7,7 @@ const AboutPage = () => {
     let {t} = useTranslation("about")
     return (
         <div>
-            <Counter/>
+            {/* <Counter/> */}
             {t("О сайте")}
         </div>
     );
