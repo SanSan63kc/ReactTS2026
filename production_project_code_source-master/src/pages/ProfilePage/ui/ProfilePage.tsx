@@ -5,8 +5,17 @@ import {
   DynamicModuleLoader,
   ReducersList,
 } from "shared/lib/components/DynamicModuleLoader/DynamicModuleLoader"
-import { fetchProfileData, getProfileData, getProfileError, getProfileIsLoading, ProfileCard, profileReducer } from "entities/Profile"
-import { useEffect } from "react"
+import {
+  fetchProfileData,
+  getProfileData,
+  getProfileError,
+  getProfileIsLoading,
+  getProfileReadonly,
+  profileActions,
+  ProfileCard,
+  profileReducer,
+} from "entities/Profile"
+import { useCallback, useEffect } from "react"
 import { AppDispatch, useAppDispatch } from "app/providers/StoreProvider"
 import { useSelector } from "react-redux"
 import { ProfilePageHeader } from "./ProfilePageHeader/ProfilePageHeader"
@@ -26,16 +35,38 @@ const ProfilePage = ({ className }: ProfilePageProps) => {
   let data = useSelector(getProfileData)
   let isLoading = useSelector(getProfileIsLoading)
   let error = useSelector(getProfileError)
+  let readonly = useSelector(getProfileReadonly)
 
   useEffect(() => {
     dispatch(fetchProfileData())
   }, [dispatch])
 
+  let onChangeFirstname = useCallback(
+    (value?: string) => {
+      dispatch(profileActions.updateProfile({ first: value || "" }))
+    },
+    [dispatch],
+  )
+
+  let onChangeLastname = useCallback(
+    (value?: string) => {
+      dispatch(profileActions.updateProfile({ lastname: value || "" }))
+    },
+    [dispatch],
+  )
+
   return (
     <DynamicModuleLoader reducers={reducers} removeAfterUnmount>
       <div className={classNames(cls.profilepage, {}, [className || ""])}>
-        <ProfilePageHeader/>
-        <ProfileCard data={data} isLoading={isLoading} error={error}/>
+        <ProfilePageHeader />
+        <ProfileCard
+          data={data}
+          isLoading={isLoading}
+          error={error}
+          readonly={readonly}
+          onChangeFirstname={onChangeFirstname}
+          onChangeLastname={onChangeLastname}
+        />
       </div>
     </DynamicModuleLoader>
   )

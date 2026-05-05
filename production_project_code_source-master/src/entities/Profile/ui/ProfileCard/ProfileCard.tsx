@@ -12,10 +12,21 @@ interface ProfileCardProps {
   data?: Profile
   error?: string
   isLoading?: boolean
+  readonly?: boolean
+  onChangeFirstname: (value?: string) => void
+  onChangeLastname: (value?: string) => void
 }
 
 export const ProfileCard = (props: ProfileCardProps) => {
-  let { className, data, isLoading, error } = props
+  let {
+    className,
+    data,
+    isLoading,
+    error,
+    readonly,
+    onChangeFirstname,
+    onChangeLastname,
+  } = props
   let { t } = useTranslation("profile")
 
   if (isLoading) {
@@ -33,7 +44,12 @@ export const ProfileCard = (props: ProfileCardProps) => {
   if (error) {
     return (
       <div className={classNames(cls.profileCard, {}, [className, cls.error])}>
-        <Text theme={TextTheme.ERROR} title={t("Произошла ошибка при загрузке профиля")} text={t("Попробуйте обновить страницу")} align={textAlign.CENTER}/>
+        <Text
+          theme={TextTheme.ERROR}
+          title={t("Произошла ошибка при загрузке профиля")}
+          text={t("Попробуйте обновить страницу")}
+          align={textAlign.CENTER}
+        />
       </div>
     )
   }
@@ -45,11 +61,15 @@ export const ProfileCard = (props: ProfileCardProps) => {
           value={data?.first}
           placeholder={t("Ваше имя")}
           className={cls.input}
+          onChange={onChangeFirstname}
+          readonly={readonly}
         />
         <Input
           value={data?.lastname}
           placeholder={t("Ваша фамилия")}
           className={cls.input}
+          onChange={onChangeLastname}
+          readonly={readonly}
         />
         <Input />
       </div>
