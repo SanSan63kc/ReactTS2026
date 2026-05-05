@@ -42,5 +42,5 @@ export interface ThunkConfig<T> {
   rejectValue: T
   extra: ThunkExtraArg
   state: StateSchema // <--- ОБЯЗАТЕЛЬНО добавьте эту строку
-  navigate?: (to: To, options?: NavigateOptions) => void
+  //navigate?: (to: To, options?: NavigateOptions) => void
 }

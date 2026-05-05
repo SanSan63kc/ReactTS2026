@@ -17,7 +17,7 @@ import { useAppDispatch } from "shared/lib/hooks/useAppDispatch/useAppDispatch"
 export { 
   StoreProvider, 
   createReduxStore,
-  useAppDispatch // 2. Добавьте его сюда
+  useAppDispatch 
 }
 
 export type { StateSchema, ThunkConfig, AppDispatch }

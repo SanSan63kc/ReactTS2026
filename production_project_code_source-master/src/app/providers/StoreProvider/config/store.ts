@@ -1,5 +1,5 @@
-import { configureStore, ReducersMapObject } from "@reduxjs/toolkit"
-import { StateSchema, ThunkExtraArg } from "./StateSchema"
+import { configureStore, Reducer, ReducersMapObject, ThunkDispatch, UnknownAction } from "@reduxjs/toolkit"
+import { ReduxStoreWithmanager, StateSchema, ThunkExtraArg } from "./StateSchema"
 import { counterReducer } from "entities/Counter"
 import { userReducer } from "entities/User"
 import { createReducerManager } from "./reducerManager"
@@ -20,7 +20,7 @@ export function createReduxStore(
   let extraArg: ThunkExtraArg = { api: $api, navigate }
 
   let store = configureStore({
-    reducer: reducerManager.reduce,
+    reducer: reducerManager.reduce as Reducer<StateSchema>,
     devTools: __IS_DEV__,
     preloadedState: initialState,
     middleware: (getDefaultMiddleware) =>
@@ -29,12 +29,13 @@ export function createReduxStore(
           extraArgument: extraArg,
         },
       }),
-  })
+  })  as ReduxStoreWithmanager
 
-  // @ts-ignore
+  
   store.reducerManager = reducerManager
 
   return store
 }
 
-export type AppDispatch = ReturnType<typeof createReduxStore>["dispatch"]
+//export type AppDispatch = ReturnType<typeof createReduxStore>["dispatch"]
+export type AppDispatch = ThunkDispatch<StateSchema, ThunkExtraArg, UnknownAction>;
