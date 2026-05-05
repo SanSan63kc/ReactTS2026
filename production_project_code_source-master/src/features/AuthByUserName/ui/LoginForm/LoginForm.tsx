@@ -10,10 +10,9 @@ import {
   loginReducer,
 } from "features/AuthByUserName/model/slice/loginSlice"
 import { loginByUsername } from "features/AuthByUserName/model/services/loginByUsername/loginByUsername"
-import { AppDispatch } from "../../../../../src/app/providers/StoreProvider/config/store" // проверь путь
 import { Text, TextTheme } from "shared/ui/Text/Text"
 import { getLoginUsername } from "../../model/selectors/getLoginUsername/getLoginUsername"
-import { getLoginPassword } from "../../model/selectors/getLOginPassword/getLoginPassword"
+import { getLoginPassword } from "../../model/selectors/getLoginPassword/getLoginPassword"
 import { getLoginError } from "../../model/selectors/getLoginError/getLoginError"
 import { getLoginIsLoading } from "../../model/selectors/getLoginIsLoading/getLoginIsLoading"
 import {

@@ -9,6 +9,7 @@ import {
   fetchProfileData,
   getProfileData,
   getProfileError,
+  getProfileForm,
   getProfileIsLoading,
   getProfileReadonly,
   profileActions,
@@ -32,7 +33,7 @@ const ProfilePage = ({ className }: ProfilePageProps) => {
   let { t } = useTranslation()
   const dispatch = useAppDispatch() as AppDispatch
 
-  let data = useSelector(getProfileData)
+  let formData = useSelector(getProfileForm)
   let isLoading = useSelector(getProfileIsLoading)
   let error = useSelector(getProfileError)
   let readonly = useSelector(getProfileReadonly)
@@ -60,7 +61,7 @@ const ProfilePage = ({ className }: ProfilePageProps) => {
       <div className={classNames(cls.profilepage, {}, [className || ""])}>
         <ProfilePageHeader />
         <ProfileCard
-          data={data}
+          data={formData}
           isLoading={isLoading}
           error={error}
           readonly={readonly}
