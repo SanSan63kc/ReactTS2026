@@ -4,7 +4,7 @@ import { Text } from "shared/ui/Text/Text"
 import { Button, ButtonTheme } from "shared/ui/Button/Button"
 import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
-import { getProfileReadonly, profileActions } from "entities/Profile"
+import { getProfileReadonly, profileActions, updateProfileData } from "entities/Profile"
 import { useCallback } from "react"
 import { useAppDispatch } from "app/providers/StoreProvider"
 
@@ -26,6 +26,10 @@ export const ProfilePageHeader = ({ className }: ProfilePageHeaderProps) => {
     dispatch(profileActions.cancelEdit())
   }, [dispatch])
 
+  let onSave = useCallback(() => {
+    dispatch(updateProfileData())
+  }, [dispatch])
+
   return (
     <div className={classNames(cls.profilePageHeader, {}, [className || ""])}>
       <Text title={t("Профиль пользователя")}></Text>
@@ -38,13 +42,22 @@ export const ProfilePageHeader = ({ className }: ProfilePageHeaderProps) => {
           {t("Редактировать")}
         </Button>
       ) : (
-        <Button
-          theme={ButtonTheme.OUTLINE}
-          className={cls.editBtn}
-          onClick={onCancelEdit}
-        >
-          {t("Отменить")}
-        </Button>
+        <>
+          <Button
+            theme={ButtonTheme.OUTLINE_RED}
+            className={cls.editBtn}
+            onClick={onCancelEdit}
+          >
+            {t("Отменить")}
+          </Button>
+          <Button
+            theme={ButtonTheme.OUTLINE}
+            className={cls.saveBtn}
+            onClick={onSave}
+          >
+            {t("Сохранить")}
+          </Button>
+        </>
       )}
     </div>
   )
