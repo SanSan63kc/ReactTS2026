@@ -20,7 +20,7 @@ export let Sidebar = memo(() => {
 
   let itemsList = useMemo(() => {
     return SidebarItemsList.map((item) => (
-      <SidebarItem item={item} collapsed={collapsed} key={item.path} />
+      <SidebarItem item={item} collapsed={collapsed} key={item.path}/>
     ))
   }, [collapsed])
 
