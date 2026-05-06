@@ -1,4 +1,4 @@
-import { classNames } from "shared/lib/classNames/classNames"
+import { classNames, Mods } from "shared/lib/classNames/classNames"
 import cls from "./ProfileCard.module.scss"
 import { useTranslation } from "react-i18next"
 import { Text, textAlign, TextTheme } from "shared/ui/Text/Text"
@@ -6,6 +6,9 @@ import { Input } from "shared/ui/Input/Input"
 import { Profile } from "entities/Profile/model/types/profile"
 import { Loader } from "shared/ui/Loader/Loader"
 import { Avatar } from "shared/ui/Avatar/Avatar"
+import { Currency } from "entities/Currency/model/types/currency"
+import { CurrencySelect } from "entities/Currency"
+import { Country } from "shared/const/common"
 
 interface ProfileCardProps {
   className?: string
@@ -19,6 +22,8 @@ interface ProfileCardProps {
   onChangeCity?: (value?: string) => void
   onChangeUsername?: (value?: string) => void
   onChangeAvatar?: (value?: string) => void
+  onChangeCurrency?: (currency: Currency) => void
+  onChangeCountry?: (country: Country) => void
 }
 
 export const ProfileCard = (props: ProfileCardProps) => {
@@ -34,6 +39,8 @@ export const ProfileCard = (props: ProfileCardProps) => {
     onChangeCity,
     onChangeUsername,
     onChangeAvatar,
+    onChangeCurrency,
+    onChangeCountry,
   } = props
   let { t } = useTranslation("profile")
 
@@ -62,8 +69,12 @@ export const ProfileCard = (props: ProfileCardProps) => {
     )
   }
 
+  let mods: Mods = {
+    [cls.editing]: !readonly,
+  }
+
   return (
-    <div className={classNames(cls.profileCard, {}, [className])}>
+    <div className={classNames(cls.profileCard, mods, [className])}>
       <div className={cls.data}>
         {data?.avatar && (
           <div className={cls.avatarWrapper}>
@@ -114,6 +125,12 @@ export const ProfileCard = (props: ProfileCardProps) => {
           placeholder={t("Введите ссылку на аватар")}
           className={cls.input}
           onChange={onChangeAvatar}
+          readonly={readonly}
+        />
+
+        <CurrencySelect
+          value={data?.currency}
+          onChange={onChangeCurrency}
           readonly={readonly}
         />
       </div>
