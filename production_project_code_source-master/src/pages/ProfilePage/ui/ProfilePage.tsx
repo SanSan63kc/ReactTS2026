@@ -12,9 +12,11 @@ import {
   getProfileForm,
   getProfileIsLoading,
   getProfileReadonly,
+  getProfileValidateErrors,
   profileActions,
   ProfileCard,
   profileReducer,
+  ValidateProfileError,
 } from "entities/Profile"
 import { useCallback, useEffect } from "react"
 import { AppDispatch, useAppDispatch } from "app/providers/StoreProvider"
@@ -22,6 +24,7 @@ import { useSelector } from "react-redux"
 import { ProfilePageHeader } from "./ProfilePageHeader/ProfilePageHeader"
 import { Currency } from "entities/Currency"
 import { Country } from "entities/Country"
+import { Text, TextTheme } from "shared/ui/Text/Text"
 
 let reducers: ReducersList = {
   profile: profileReducer,
@@ -32,13 +35,22 @@ interface ProfilePageProps {
 }
 
 const ProfilePage = ({ className }: ProfilePageProps) => {
-  let { t } = useTranslation()
+  let { t } = useTranslation("profile")
   const dispatch = useAppDispatch() as AppDispatch
 
   let formData = useSelector(getProfileForm)
   let isLoading = useSelector(getProfileIsLoading)
   let error = useSelector(getProfileError)
   let readonly = useSelector(getProfileReadonly)
+  let validateErrors = useSelector(getProfileValidateErrors)
+
+  let validateErrorTranslates = {
+    [ValidateProfileError.SERVER_ERROR]: t("Серверная ошибка при сохранении"),
+    [ValidateProfileError.INCORRECT_AGE]: t("Некорректный возраст"),
+    [ValidateProfileError.INCORRECT_USER_DATA]: t("Имя и фамилия обязательны"),
+    [ValidateProfileError.NO_DATA]: t("Нет данных"),
+    [ValidateProfileError.INCORRECT_COUNTRY]: t("Не выбрана страна"),
+  }
 
   useEffect(() => {
     dispatch(fetchProfileData())
@@ -93,7 +105,7 @@ const ProfilePage = ({ className }: ProfilePageProps) => {
     [dispatch],
   )
 
-   let onChangeCountry = useCallback(
+  let onChangeCountry = useCallback(
     (country?: Country) => {
       dispatch(profileActions.updateProfile({ country }))
     },
@@ -104,6 +116,12 @@ const ProfilePage = ({ className }: ProfilePageProps) => {
     <DynamicModuleLoader reducers={reducers} removeAfterUnmount>
       <div className={classNames(cls.profilepage, {}, [className || ""])}>
         <ProfilePageHeader />
+
+        {validateErrors?.length &&
+          validateErrors.map((err) => (
+            <Text theme={TextTheme.ERROR} text={validateErrorTranslates[err]} key={err} />
+          ))}
+
         <ProfileCard
           data={formData}
           isLoading={isLoading}

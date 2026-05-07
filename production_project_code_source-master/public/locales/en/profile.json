@@ -10,5 +10,10 @@
     "Возраст": "Age",
     "Город": "City",
     "Ник": "Nickname",
-    "Введите ссылку на аватар": "Avatar link"
+    "Введите ссылку на аватар": "Avatar link",
+    "Серверная ошибка при сохранении": "Server error",
+    "Некорректный возраст": "Uncorrect age",
+    "Имя и фамилия обязательны": "First and last name are required",
+    "Нет данных": "No data",
+    "Не выбрана страна": "No country selected"
 }
