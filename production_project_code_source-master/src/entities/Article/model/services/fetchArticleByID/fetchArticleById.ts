@@ -15,6 +15,6 @@ export let fetchArticleById = createAsyncThunk<
     return response.data
   } catch (e) {
     //console.log(e)
-    return rejectWithValue(i18n.t("не удалось получить данные профиля"))
+    return rejectWithValue(i18n.t("не удалось получить данные статьи"))
   }
 })
