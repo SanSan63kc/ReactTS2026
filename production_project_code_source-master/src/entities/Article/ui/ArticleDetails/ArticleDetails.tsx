@@ -16,6 +16,7 @@ import {
 } from "../../model/selectors/articleDetails"
 import { Text, textAlign } from "shared/ui/Text/Text"
 import { t } from "i18next"
+import { Skeleton } from "shared/ui/Skeleton/Skeleton"
 
 interface ArticleDetailsProps {
   className?: string
@@ -32,7 +33,8 @@ export const ArticleDetails = memo((props: ArticleDetailsProps) => {
   let dispatch = useAppDispatch()
 
   let article = useSelector(getArticleDetailsData)
-  let isLoading = useSelector(getArticleDetailsIsLoading)
+  //let isLoading = useSelector(getArticleDetailsIsLoading)
+  let isLoading = true
   let error = useSelector(getArticleDetailsError)
 
   useEffect(() => {
@@ -42,7 +44,20 @@ export const ArticleDetails = memo((props: ArticleDetailsProps) => {
   let content
 
   if (isLoading) {
-    content = <div>Loading...</div>
+    content = (
+      <div>
+        <Skeleton
+          className={cls.avatar}
+          width={200}
+          height={200}
+          border={"50%"}
+        />
+        <Skeleton className={cls.title} width={300} height={32} />
+        <Skeleton className={cls.skeleton} width={600} height={200} />
+        <Skeleton className={cls.skeleton} width={"100%"} height={200} />
+        <Skeleton className={cls.skeleton} width={"100%"} height={200} />
+      </div>
+    )
   } else if (error) {
     content = (
       <Text
