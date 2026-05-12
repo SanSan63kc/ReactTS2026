@@ -15,7 +15,7 @@ export const ArticleCodeBlockComponent = memo(
 
     return (
       <div
-        className={classNames(cls.Articlecodeblockcomponent, {}, [
+        className={classNames(cls.articleCodeBlockComponent, {}, [
           className || "",
         ])}
       >
