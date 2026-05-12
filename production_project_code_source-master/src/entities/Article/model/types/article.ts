@@ -14,7 +14,7 @@ export interface ArticleCodeBlock extends ArticleBlockBase {
   code: string
 }
 
-export interface ArticleImageLock extends ArticleBlockBase {
+export interface ArticleImageBlock extends ArticleBlockBase {
   type: ArticleBlockType.IMAGE
   src: string
   title: string
@@ -28,7 +28,7 @@ export interface ArticleTextBLock extends ArticleBlockBase {
 
 export type ArticleBlock =
   | ArticleCodeBlock
-  | ArticleImageLock
+  | ArticleImageBlock
   | ArticleTextBLock
 
 export enum ArticleType {
