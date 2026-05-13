@@ -4,6 +4,8 @@ import { useTranslation } from "react-i18next"
 import { memo } from "react"
 import { ArticleDetails } from "entities/Article"
 import { useParams } from "react-router-dom"
+import { Text } from "shared/ui/Text/Text"
+import { CommentList } from "entities/Comment"
 
 interface ArticleDetailsPageProps {
   className?: string
@@ -16,7 +18,7 @@ const ArticleDetailsPage = ({ className }: ArticleDetailsPageProps) => {
   if (!id) {
     return (
       <div
-        className={classNames(cls.articledetailspage, {}, [className || ""])}
+        className={classNames(cls.articleDetailsPage, {}, [className || ""])}
       >
         {t("Статья не найдена")}
       </div>
@@ -24,8 +26,10 @@ const ArticleDetailsPage = ({ className }: ArticleDetailsPageProps) => {
   }
 
   return (
-    <div className={classNames(cls.articledetailspage, {}, [className || ""])}>
+    <div className={classNames(cls.articleDetailsPage, {}, [className || ""])}>
       <ArticleDetails id={id} />
+      <Text className={cls.commentTitle} title={t("Комментарии")} />
+      <CommentList isLoading comments={[]}/>
     </div>
   )
 }
