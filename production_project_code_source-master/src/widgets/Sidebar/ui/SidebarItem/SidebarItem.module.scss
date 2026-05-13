@@ -13,6 +13,11 @@
   fill: var(--inverted-primary-color);
 }
 
+.icon:hover{
+  fill: var(-primary-color);
+  color: var(--primary-color);
+}
+
 .collapsed {
   .link {
     opacity: 0;
