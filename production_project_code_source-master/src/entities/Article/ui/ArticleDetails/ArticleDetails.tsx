@@ -7,7 +7,7 @@ import {
 import { articleDetailsReducer } from "../../model/slice/articleDetailsSlice"
 import { memo, useCallback, useEffect } from "react"
 import { useAppDispatch } from "app/providers/StoreProvider"
-import { fetchArticleById } from "../../model/services/fetchArticleByID/fetchArticleByID"
+import { fetchArticleById } from "../../model/services/fetchArticleById/fetchArticleById"
 import { useSelector } from "react-redux"
 import {
   getArticleDetailsData,
