@@ -120,14 +120,28 @@
       "avatar": "https://xakep.ru/wp-content/uploads/2018/05/171485/KuroiSH-hacker.jpg"
     }
   ],
-  "profile": {
-    "first": "Александр",
-    "lastname": "Сёмушкин",
-    "age": 35,
-    "currency": "RUB",
-    "country": "Russia",
-    "city": "Новокуйбышевск",
-    "username": "sansan",
-    "avatar": "https://i.postimg.cc/Dw3gMNDg/Snimok3.png"
-  }
+  "profile": [
+    {
+      "id":"1",
+      "first": "Александр",
+      "lastname": "Сёмушкин",
+      "age": 35,
+      "currency": "RUB",
+      "country": "Russia",
+      "city": "Новокуйбышевск",
+      "username": "sansan",
+      "avatar": "https://i.postimg.cc/Dw3gMNDg/Snimok3.png"
+    },
+    {
+      "id":"2",
+      "first": "Второй",
+      "lastname": "Пользователь",
+      "age": 25,
+      "currency": "RUB",
+      "country": "Russia",
+      "city": "Новокуйбышевск",
+      "username": "second user",
+      "avatar": "https://xakep.ru/wp-content/uploads/2018/05/171485/KuroiSH-hacker.jpg"
+    }
+  ]
 }

@@ -25,6 +25,8 @@ import { ProfilePageHeader } from "./ProfilePageHeader/ProfilePageHeader"
 import { Currency } from "entities/Currency"
 import { Country } from "entities/Country"
 import { Text, TextTheme } from "shared/ui/Text/Text"
+import { useInitialEffect } from "shared/lib/hooks/useInitialEffect/useInitialEffect"
+import { useParams } from "react-router-dom"
 
 let reducers: ReducersList = {
   profile: profileReducer,
@@ -43,6 +45,7 @@ const ProfilePage = ({ className }: ProfilePageProps) => {
   let error = useSelector(getProfileError)
   let readonly = useSelector(getProfileReadonly)
   let validateErrors = useSelector(getProfileValidateErrors)
+  let { id } = useParams<{ id: string }>()
 
   let validateErrorTranslates = {
     [ValidateProfileError.SERVER_ERROR]: t("Серверная ошибка при сохранении"),
@@ -52,9 +55,11 @@ const ProfilePage = ({ className }: ProfilePageProps) => {
     [ValidateProfileError.INCORRECT_COUNTRY]: t("Не выбрана страна"),
   }
 
-  useEffect(() => {
-    dispatch(fetchProfileData())
-  }, [dispatch])
+  useInitialEffect(() => {
+    if (id) {
+      dispatch(fetchProfileData(id))
+    }
+  })
 
   let onChangeFirstname = useCallback(
     (value?: string) => {
@@ -119,7 +124,11 @@ const ProfilePage = ({ className }: ProfilePageProps) => {
 
         {validateErrors?.length &&
           validateErrors.map((err) => (
-            <Text theme={TextTheme.ERROR} text={validateErrorTranslates[err]} key={err} />
+            <Text
+              theme={TextTheme.ERROR}
+              text={validateErrorTranslates[err]}
+              key={err}
+            />
           ))}
 
         <ProfileCard
