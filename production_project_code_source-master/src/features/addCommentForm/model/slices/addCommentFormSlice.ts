@@ -30,5 +30,5 @@ export const addCommentSlice = createSlice({
 })
 
 // Экспортируем экшены для использования в компонентах
-export const { actions: addCommentActions } = addCommentSlice
-export const { reducer: addCommentReducer } = addCommentSlice
+export const { actions: addCommentFormActions } = addCommentSlice
+export const { reducer: addCommentFormReducer } = addCommentSlice

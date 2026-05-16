@@ -19,25 +19,27 @@ interface DynamicModuleLoaderProps {
 }
 
 export const DynamicModuleLoader: FC<DynamicModuleLoaderProps> = (props) => {
+  let { children, reducers, removeAfterUnmount = true } = props
 
   let dispatch = useDispatch()
-  let { children, reducers, removeAfterUnmount } = props
   let store = useStore() as ReduxStoreWithmanager
 
   useEffect(() => {
-   (Object.entries(reducers) as ReducersListEntry[]).forEach(([name, reducer]: ReducersListEntry) => {
-      store.reducerManager.add(name, reducer)
-       dispatch({ type: `@INIT ${name} reducer` });
-    })
+    ;(Object.entries(reducers) as ReducersListEntry[]).forEach(
+      ([name, reducer]: ReducersListEntry) => {
+        store.reducerManager.add(name, reducer)
+        dispatch({ type: `@INIT ${name} reducer` })
+      },
+    )
 
     return () => {
-    if (removeAfterUnmount) {
-        (Object.entries(reducers) as ReducersListEntry[]).forEach(([name]) => {
-            store.reducerManager.remove(name);
-            dispatch({ type: `@DESTROY ${name} reducer` });
-        });
+      if (removeAfterUnmount) {
+        ;(Object.entries(reducers) as ReducersListEntry[]).forEach(([name]) => {
+          store.reducerManager.remove(name)
+          dispatch({ type: `@DESTROY ${name} reducer` })
+        })
+      }
     }
-};
   }, [])
 
   return <>{children}</>
