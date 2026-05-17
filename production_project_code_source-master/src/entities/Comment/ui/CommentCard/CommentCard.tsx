@@ -10,7 +10,7 @@ import { RoutePath } from "shared/config/routerConfig/routeConfig"
 
 interface CommentCardProps {
   className?: string
-  comment: Comment
+  comment?: Comment
   isLoading?: boolean
 }
 
@@ -29,8 +29,12 @@ export const CommentCard = memo((props: CommentCardProps) => {
     )
   }
 
+  if(!comment){
+    return null
+  }
+
   return (
-    <div className={classNames(cls.commentCard, {}, [className])}>
+    <div className={classNames(cls.commentCard, {}, [className, cls.loading])}>
       <AppLink to={`${RoutePath.profile}/${comment.user.id}`} className={cls.header}>
         {comment.user.avatar ? (
           <Avatar size={30} src={comment.user.avatar} />
