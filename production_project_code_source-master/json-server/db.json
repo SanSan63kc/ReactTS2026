@@ -102,6 +102,30 @@
       "text": "some comment 3",
       "articleId": "1",
       "userId": "1"
+    },
+    {
+      "articleID": "1",
+      "userId": 1,
+      "text": "876876",
+      "id": "dsQlUYg"
+    },
+    {
+      "articleID": "1",
+      "userId": 1,
+      "text": "мой коммент",
+      "id": "fbdV7xI"
+    },
+    {
+      "articleId": "1",
+      "userId": 1,
+      "text": "414",
+      "id": "O44tuRi"
+    },
+    {
+      "articleId": "1",
+      "userId": 1,
+      "text": "привет",
+      "id": "MLGWS0S"
     }
   ],
   "users": [
@@ -122,7 +146,7 @@
   ],
   "profile": [
     {
-      "id":"1",
+      "id": "1",
       "first": "Александр",
       "lastname": "Сёмушкин",
       "age": 35,
@@ -133,7 +157,7 @@
       "avatar": "https://i.postimg.cc/Dw3gMNDg/Snimok3.png"
     },
     {
-      "id":"2",
+      "id": "2",
       "first": "Второй",
       "lastname": "Пользователь",
       "age": 25,
