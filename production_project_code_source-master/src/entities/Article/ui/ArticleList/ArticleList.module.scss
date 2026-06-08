@@ -1,9 +1,14 @@
-.articleList {
-  display: flex;
-  flex-wrap: wrap;
+.BIG {
+  .card {
+    margin-bottom: 30px;
+  }
 }
 
-.card{
+.SMALL {
+  display: flex;
+  flex-wrap: wrap;
+  .card {
     margin-right: 30px;
     margin-bottom: 30px;
+  }
 }

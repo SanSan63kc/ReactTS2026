@@ -2,7 +2,7 @@ import { classNames } from "shared/lib/classNames/classNames"
 import cls from "./ArticlesPage.module.scss"
 import { useTranslation } from "react-i18next"
 import { memo } from "react"
-import { Article, ArticleList } from "entities/Article"
+import { Article, ArticleList, ArticleView } from "entities/Article"
 
 interface ArticlesPageProps {
   className?: string
@@ -15,6 +15,11 @@ let article = {
   img: "https://teknotower.com/wp-content/uploads/2020/11/js.png",
   views: 1022,
   createdAt: "26.02.2022",
+  user: {
+    id: "1",
+    username: "admin",
+    avatar: "https://i.postimg.cc/Dw3gMNDg/Snimok3.png",
+  },
   type: ["IT"],
   blocks: [
     {
@@ -83,6 +88,7 @@ const ArticlesPage = ({ className }: ArticlesPageProps) => {
   return (
     <div className={classNames(cls.articlesPage, {}, [className || ""])}>
       <ArticleList
+        view={ArticleView.SMALL}
         articles={new Array(16).fill(0).map((item, index) => ({
           ...article,
           id: String(index),

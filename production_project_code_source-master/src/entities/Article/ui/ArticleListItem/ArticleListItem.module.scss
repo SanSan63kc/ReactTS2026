@@ -1,4 +1,41 @@
 .BIG {
+  .views {
+    margin-left: auto;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+  }
+
+  .username {
+    margin-left: 8px;
+  }
+
+  .date {
+    margin-left: auto;
+  }
+
+  .title {
+    margin-top: 8px;
+  }
+
+  .img {
+    width: 100%;
+    min-height: 250px;
+    object-fit: cover;
+  }
+
+  .footer {
+    display: flex;
+    align-items: center;
+    margin-top: 16px;
+  }
+
+  .textBlock{
+    max-height: 210px;
+    overflow-y: hidden;
+  }
 }
 
 .SMALL {
@@ -31,6 +68,8 @@
   .img {
     width: 200px;
     height: 200px;
+    object-fit: cover;
+    margin: 16px 0;
   }
 
   .infoWrapper {
