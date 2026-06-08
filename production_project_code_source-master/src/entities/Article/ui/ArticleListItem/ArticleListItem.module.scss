@@ -22,8 +22,9 @@
 
   .img {
     width: 100%;
-    min-height: 250px;
+    max-height: 250px;
     object-fit: cover;
+    margin: 16px 0;
   }
 
   .footer {
@@ -69,7 +70,6 @@
     width: 200px;
     height: 200px;
     object-fit: cover;
-    margin: 16px 0;
   }
 
   .infoWrapper {

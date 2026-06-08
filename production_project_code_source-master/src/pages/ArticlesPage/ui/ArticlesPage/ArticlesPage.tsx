@@ -88,7 +88,8 @@ const ArticlesPage = ({ className }: ArticlesPageProps) => {
   return (
     <div className={classNames(cls.articlesPage, {}, [className || ""])}>
       <ArticleList
-        view={ArticleView.SMALL}
+      isLoading={true}
+        view={ArticleView.BIG}
         articles={new Array(16).fill(0).map((item, index) => ({
           ...article,
           id: String(index),
