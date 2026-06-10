@@ -22,7 +22,7 @@ export interface ArticleImageBlock extends ArticleBlockBase {
   title: string
 }
 
-export interface ArticleTextBLock extends ArticleBlockBase {
+export interface ArticleTextBlock extends ArticleBlockBase {
   type: ArticleBlockType.TEXT
   title?: string
   paragraphs: string[]
@@ -31,7 +31,7 @@ export interface ArticleTextBLock extends ArticleBlockBase {
 export type ArticleBlock =
   | ArticleCodeBlock
   | ArticleImageBlock
-  | ArticleTextBLock
+  | ArticleTextBlock
 
 export enum ArticleType {
   IT = "IT",

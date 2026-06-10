@@ -5,7 +5,7 @@ import cls from "./ArticleListItem.module.scss"
 import {
   Article,
   ArticleBlockType,
-  ArticleTextBLock,
+  ArticleTextBlock,
   ArticleView,
 } from "../../model/types/article"
 import { Text } from "shared/ui/Text/Text"
@@ -26,8 +26,8 @@ interface ArticleListItemProps {
 
 export const ArticleListItem = memo((props: ArticleListItemProps) => {
   const { className, article, view } = props
-  const { t } = useTranslation("article")
-  let navigate = useNavigate()
+  const { t } = useTranslation()
+  const navigate = useNavigate()
 
   let onOpenArticle = useCallback(() => {
     navigate(RoutePath.article_details + article.id)
@@ -36,7 +36,7 @@ export const ArticleListItem = memo((props: ArticleListItemProps) => {
   let types = <Text text={article.type.join(", ")} className={cls.types} />
   let views = (
     <>
-      <Text text={String(article.views)} className={cls.types} />
+      <Text text={String(article.views)} className={cls.views} />
       <Icon Svg={EyeIcon} />
     </>
   )
@@ -44,11 +44,11 @@ export const ArticleListItem = memo((props: ArticleListItemProps) => {
   if (view === ArticleView.BIG) {
     let textBlock = article.blocks.find(
       (block) => block.type === ArticleBlockType.TEXT,
-    ) as ArticleTextBLock
+    ) as ArticleTextBlock
 
     return (
       <div
-        className={classNames(cls.articleListItem, {}, [className, cls[view]])}
+        className={classNames(cls.ArticleListItem, {}, [className, cls[view]])}
       >
         <Card className={cls.card}>
           <div className={cls.header}>
@@ -58,7 +58,7 @@ export const ArticleListItem = memo((props: ArticleListItemProps) => {
           </div>
           <Text title={article.title} className={cls.title} />
           {types}
-          <img src={article.img} className={cls.img} alt={article.title}></img>
+          <img src={article.img} className={cls.img} alt={article.title} />
           {textBlock && (
             <ArticleTextBlockComponent
               block={textBlock}
@@ -76,7 +76,7 @@ export const ArticleListItem = memo((props: ArticleListItemProps) => {
 
   return (
     <div
-      className={classNames(cls.articleListItem, {}, [className, cls[view]])}
+      className={classNames(cls.ArticleListItem, {}, [className, cls[view]])}
     >
       <Card className={cls.card} onClick={onOpenArticle}>
         <div className={cls.imageWrapper}>
@@ -86,7 +86,6 @@ export const ArticleListItem = memo((props: ArticleListItemProps) => {
         <div className={cls.infoWrapper}>
           {types}
           {views}
-          <Icon Svg={EyeIcon} />
         </div>
         <Text text={article.title} className={cls.title} />
       </Card>

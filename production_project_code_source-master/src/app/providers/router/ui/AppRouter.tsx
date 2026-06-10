@@ -13,7 +13,8 @@ let AppRouter = () => {
   let renderWithWrapper = useCallback((route: AppRoutesProps) => {
     let element = (
       <Suspense fallback={<div>{t("Загрузка")}</div>}>
-        <div className="page-wrapper">{route.element}</div>
+        {/* <div className="page-wrapper">{route.element}</div> */}
+        {route.element}
       </Suspense>
     )
 

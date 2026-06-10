@@ -1,12 +1,12 @@
 import { classNames } from "shared/lib/classNames/classNames"
 import cls from "./ArticleTextBlockComponent.module.scss"
 import { memo } from "react"
-import { ArticleTextBLock } from "../../model/types/article"
+import { ArticleTextBlock } from "../../model/types/article"
 import { Text } from "shared/ui/Text/Text"
 
 interface ArticleTextBlockComponentProps {
   className?: string
-  block: ArticleTextBLock
+  block: ArticleTextBlock
 }
 
 export const ArticleTextBlockComponent = memo(
