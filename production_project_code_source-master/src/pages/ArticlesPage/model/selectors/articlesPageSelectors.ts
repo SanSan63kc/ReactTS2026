@@ -18,3 +18,6 @@ export let getArticlesPageLimit = (state: StateSchema) =>
 
 export let getArticlesPageHasMore = (state: StateSchema) =>
   state.articlesPage?.hasMore
+
+export let getArticlesPageInited = (state: StateSchema) =>
+  state.articlesPage?._inited

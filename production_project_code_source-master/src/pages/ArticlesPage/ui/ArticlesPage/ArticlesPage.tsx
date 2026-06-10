@@ -18,6 +18,7 @@ import { useSelector } from "react-redux"
 import {
   getArticlesPageError,
   getArticlesPageHasMore,
+  getArticlesPageInited,
   getArticlesPageIsLoading,
   getArticlesPageNum,
   getArticlesPageView,
@@ -41,6 +42,7 @@ const ArticlesPage = ({ className }: ArticlesPageProps) => {
   let error = useSelector(getArticlesPageError)
   let page = useSelector(getArticlesPageNum)
   let hasMore = useSelector(getArticlesPageHasMore)
+  const inited = useSelector(getArticlesPageInited)
 
   let onChangeView = useCallback(
     (view: ArticleView) => {
@@ -50,12 +52,14 @@ const ArticlesPage = ({ className }: ArticlesPageProps) => {
   )
 
   let onLoadNextPart = useCallback(() => {
-   dispatch(fetchNextArticlesPage())
+    dispatch(fetchNextArticlesPage())
   }, [dispatch])
 
   useInitialEffect(() => {
-    dispatch(articlesPageActions.initState())
-    dispatch(fetchArticlesList()) 
+    if (!inited) {
+      dispatch(articlesPageActions.initState())
+      dispatch(fetchArticlesList())
+    }
   })
 
   return (

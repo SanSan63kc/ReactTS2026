@@ -6,8 +6,9 @@ import { PayloadAction } from "@reduxjs/toolkit"
 import { fetchArticlesList } from "../services/fetchArticlesList/fetchArticlesList"
 import { ARTICLES_VIEW_LOCALSTORAGE_KEY } from "shared/const/localstorage"
 
-// ИСПРАВЛЕНО: удален пустой конфиг, вызывающий конфликт Omit в TS
-const articlesAdapter = createEntityAdapter<Article>()
+const articlesAdapter = createEntityAdapter<Article, string>({
+  selectId: (article) => String(article.id),
+})
 
 export const getArticles = articlesAdapter.getSelectors<StateSchema>(
   (state) => state.articlesPage || articlesAdapter.getInitialState(),
@@ -22,8 +23,9 @@ const articlesPageSlice = createSlice({
     view: ArticleView.SMALL,
     page: 1,
     hasMore: true,
-    limit: 9,         // Дефолтный лимит для TypeScript
-    error: undefined, // Дефолтная ошибка для TypeScript
+    limit: 9,
+    error: undefined,
+    _inited: false,
   }),
   reducers: {
     setView: (state, action: PayloadAction<ArticleView>) => {
@@ -34,11 +36,12 @@ const articlesPageSlice = createSlice({
       state.page = action.payload
     },
     initState: (state) => {
-      const view = localStorage.getItem(
-        ARTICLES_VIEW_LOCALSTORAGE_KEY,
-      ) as ArticleView || ArticleView.SMALL
+      const view =
+        (localStorage.getItem(ARTICLES_VIEW_LOCALSTORAGE_KEY) as ArticleView) ||
+        ArticleView.SMALL
       state.view = view
       state.limit = view === ArticleView.BIG ? 4 : 9
+      state._inited = true // <-- 2. Переключаем в true, когда состояние прочитано
     },
   },
   extraReducers: (builder) => {
@@ -52,7 +55,7 @@ const articlesPageSlice = createSlice({
         (state, action: PayloadAction<Article[]>) => {
           state.isLoading = false
           articlesAdapter.addMany(state, action.payload)
-          
+
           // Исправлено: жестко контролируем окончание пагинации
           state.hasMore = action.payload.length >= state.limit
         },
