@@ -41,7 +41,7 @@ const articlesPageSlice = createSlice({
         ArticleView.SMALL
       state.view = view
       state.limit = view === ArticleView.BIG ? 4 : 9
-      state._inited = true // <-- 2. Переключаем в true, когда состояние прочитано
+      state._inited = true 
     },
   },
   extraReducers: (builder) => {
@@ -56,7 +56,6 @@ const articlesPageSlice = createSlice({
           state.isLoading = false
           articlesAdapter.addMany(state, action.payload)
 
-          // Исправлено: жестко контролируем окончание пагинации
           state.hasMore = action.payload.length >= state.limit
         },
       )

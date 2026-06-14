@@ -8,7 +8,7 @@ import { NavigateOptions, To } from "react-router-dom"
 
 export function createReduxStore(
   initialState?: StateSchema,
-  navigate?: (to: To, options?: NavigateOptions) => void,
+  //navigate?: (to: To, options?: NavigateOptions) => void,
 ) {
   const rootReducers: ReducersMapObject<StateSchema> = {
     counter: counterReducer,
@@ -17,7 +17,7 @@ export function createReduxStore(
 
   let reducerManager = createReducerManager(rootReducers)
 
-  let extraArg: ThunkExtraArg = { api: $api, navigate }
+  let extraArg: ThunkExtraArg = { api: $api, /* navigate */ }
 
   let store = configureStore({
     reducer: reducerManager.reduce as Reducer<StateSchema>,

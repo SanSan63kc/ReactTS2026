@@ -13,9 +13,9 @@ interface StoreProviderProps {
 
 export let StoreProvider = (props: StoreProviderProps) => {
 
-  let navigate = useNavigate()
+  //let navigate = useNavigate()
   let { children, initialState } = props
-  let store = createReduxStore(initialState , navigate)
+  let store = createReduxStore(initialState , /* navigate */)
 
   return <Provider store={store}>{children}</Provider>
 }
