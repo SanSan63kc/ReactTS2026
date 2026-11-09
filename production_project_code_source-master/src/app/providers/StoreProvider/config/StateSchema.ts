@@ -11,12 +11,14 @@ import { ProfileSchema } from "entities/Profile"
 import { UserSchema } from "entities/User"
 import { AddCommentFormSchema } from "features/addCommentForm"
 import { LoginSchema } from "features/AuthByUserName"
+import { UISchema } from "features/UI"
 import { ArticleDetailsCommentsSchema } from "pages/ArticleDetailsPage"
 import { ArticlesPageSchema } from "pages/ArticlesPage"
 
 export interface StateSchema {
   counter: CounterSchema
   user: UserSchema
+  ui: UISchema
   //async
   loginForm?: LoginSchema
   profile?: ProfileSchema
