@@ -2,14 +2,19 @@ import { memo, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { classNames } from "shared/lib/classNames/classNames"
 import cls from "./ArticlesPageFilters.module.scss"
-import { ArticleView, ArticleViewSelector } from "entities/Article"
+import {
+    ArticleSortField,
+  ArticleSortSelector,
+  ArticleView,
+  ArticleViewSelector,
+} from "entities/Article"
 import { useSelector } from "react-redux"
-import { getArticlesPageView } from "pages/ArticlesPage/model/selectors/articlesPageSelectors"
+import { getArticlesPageOrder, getArticlesPageSort, getArticlesPageView } from "../../model/selectors/articlesPageSelectors"
 import { useAppDispatch } from "app/providers/StoreProvider"
-import { articlesPageActions } from "pages/ArticlesPage/model/slices/articlePageSlice"
-import { Select } from "shared/ui/Select/Select"
+import { articlesPageActions } from "../../model/slices/articlePageSlice"
 import { Card } from "shared/ui/Card/Card"
 import { Input } from "shared/ui/Input/Input"
+import { SortOrder } from "shared/types"
 
 interface ArticlesPageFiltersProps {
   className?: string
@@ -18,8 +23,10 @@ interface ArticlesPageFiltersProps {
 export const ArticlesPageFilters = memo((props: ArticlesPageFiltersProps) => {
   const { className } = props
   const { t } = useTranslation()
-  let view = useSelector(getArticlesPageView)
   let dispatch = useAppDispatch()
+  let view = useSelector(getArticlesPageView)
+  let sort = useSelector(getArticlesPageSort)
+  let order = useSelector(getArticlesPageOrder)
 
   let onChangeView = useCallback(
     (view: ArticleView) => {
@@ -28,14 +35,33 @@ export const ArticlesPageFilters = memo((props: ArticlesPageFiltersProps) => {
     [dispatch],
   )
 
+  let onChangeSort = useCallback(
+    (newSort: ArticleSortField) => {
+      dispatch(articlesPageActions.setSort(newSort))
+    },
+    [dispatch],
+  )
+
+  let onChangeOrder = useCallback(
+    (newOrder: SortOrder) => {
+      dispatch(articlesPageActions.setOrder(newOrder))
+    },
+    [dispatch],
+  )
+
   return (
     <div className={classNames(cls.articlesPageFilters, {}, [className])}>
       <div className={cls.sortWrapper}>
-        <Select label={t("Сортировать по")} />
+        <ArticleSortSelector
+          order={order}
+          sort={sort}
+          onChangeOrder={onChangeOrder}
+          onChangeSort={onChangeSort}
+        />
         <ArticleViewSelector view={view} onViewClick={onChangeView} />
       </div>
       <Card className={cls.search}>
-        <Input placeholder={t("Поиск")}/>
+        <Input placeholder={t("Поиск")} />
       </Card>
     </div>
   )
