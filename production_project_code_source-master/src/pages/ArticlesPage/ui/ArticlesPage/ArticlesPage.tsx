@@ -24,6 +24,7 @@ import {
 import { Page } from "widgets/Page/Page"
 import { fetchNextArticlesPage } from "../../model/services/fetchNextArticlesPage/fetchNextArticlesPage"
 import { initArticlesPage } from "../../model/services/initArticlesPage/initArticlesPage"
+import { ArticlesPageFilters } from "../ArticlesPageFilters/ArticlesPageFilters"
 
 interface ArticlesPageProps {
   className?: string
@@ -42,13 +43,6 @@ const ArticlesPage = ({ className }: ArticlesPageProps) => {
   let page = useSelector(getArticlesPageNum)
   let hasMore = useSelector(getArticlesPageHasMore)
 
-  let onChangeView = useCallback(
-    (view: ArticleView) => {
-      dispatch(articlesPageActions.setView(view))
-    },
-    [dispatch],
-  )
-
   let onLoadNextPart = useCallback(() => {
     dispatch(fetchNextArticlesPage())
   }, [dispatch])
@@ -63,8 +57,13 @@ const ArticlesPage = ({ className }: ArticlesPageProps) => {
         onScrollEnd={onLoadNextPart}
         className={classNames(cls.articlesPage, {}, [className || ""])}
       >
-        <ArticleViewSelector view={view} onViewClick={onChangeView} />
-        <ArticleList isLoading={isLoading} view={view} articles={articles} />
+        <ArticlesPageFilters />
+        <ArticleList
+          isLoading={isLoading}
+          view={view}
+          articles={articles}
+          className={cls.list}
+        />
       </Page>
     </DynamicModuleLoader>
   )
