@@ -21,6 +21,7 @@ import { Card } from "shared/ui/Card/Card"
 import { Input } from "shared/ui/Input/Input"
 import { SortOrder } from "shared/types"
 import { fetchArticlesList } from "pages/ArticlesPage/model/services/fetchArticlesList/fetchArticlesList"
+import { useDebounce } from "shared/lib/hooks/useDebounce/useDebounce"
 
 interface ArticlesPageFiltersProps {
   className?: string
@@ -38,6 +39,8 @@ export const ArticlesPageFilters = memo((props: ArticlesPageFiltersProps) => {
   let fetchData = useCallback(() => {
     dispatch(fetchArticlesList({ replace: true }))
   }, [dispatch])
+
+  let debouncedFetchData = useDebounce(fetchData, 500)
 
   let onChangeView = useCallback(
     (view: ArticleView) => {
@@ -68,9 +71,9 @@ export const ArticlesPageFilters = memo((props: ArticlesPageFiltersProps) => {
     (search: string) => {
       dispatch(articlesPageActions.setSearch(search))
       dispatch(articlesPageActions.setPage(1))
-      fetchData()
+      debouncedFetchData()
     },
-    [dispatch, fetchData],
+    [dispatch, debouncedFetchData],
   )
 
   return (
