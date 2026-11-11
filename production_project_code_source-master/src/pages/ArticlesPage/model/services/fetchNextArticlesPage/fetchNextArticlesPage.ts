@@ -18,10 +18,8 @@ export const fetchNextArticlesPage = createAsyncThunk<
   const page = getArticlesPageNum(getState())
   const isLoading = getArticlesPageIsLoading(getState())
 
-  //console.log("=== ТРИГГЕР СКРОЛЛА === ", { hasMore, isLoading, page })
-
   if (hasMore && !isLoading) {
     dispatch(articlesPageActions.setPage(page + 1))
-    dispatch(fetchArticlesList()) 
+    dispatch(fetchArticlesList({})) 
   }
 })
