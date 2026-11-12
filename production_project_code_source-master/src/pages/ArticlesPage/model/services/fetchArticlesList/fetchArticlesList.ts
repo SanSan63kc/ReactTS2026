@@ -8,8 +8,10 @@ import {
   getArticlesPageOrder,
   getArticlesPageSearch,
   getArticlesPageSort,
+  getArticlesPageType,
 } from "../../selectors/articlesPageSelectors"
 import { addQueryParams } from "shared/lib/url/addQueryParams/addQueryParams"
+import { ArticleType } from "entities/Article/model/types/article"
 
 interface FetchArticleListProps {
   replace?: boolean
@@ -27,12 +29,14 @@ export let fetchArticlesList = createAsyncThunk<
   let sort = getArticlesPageSort(getState())
   let order = getArticlesPageOrder(getState())
   let search = getArticlesPageSearch(getState())
+  let type = getArticlesPageType(getState())
 
   try {
     addQueryParams({
       sort,
       order,
-      search
+      search,
+      type,
     })
     let response = await extra.api.get<Article[]>(`/articles`, {
       params: {
@@ -42,6 +46,7 @@ export let fetchArticlesList = createAsyncThunk<
         _sort: sort,
         _order: order,
         q: search,
+        type: type === ArticleType.ALL ? undefined : type,
       },
     })
     return response.data

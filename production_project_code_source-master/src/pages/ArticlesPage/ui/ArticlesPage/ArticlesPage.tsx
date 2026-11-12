@@ -1,7 +1,7 @@
 import { classNames } from "shared/lib/classNames/classNames"
 import cls from "./ArticlesPage.module.scss"
 import { memo, useCallback } from "react"
-import { ArticleList, ArticleView, ArticleViewSelector } from "entities/Article"
+import { ArticleList } from "entities/Article"
 import {
   DynamicModuleLoader,
   ReducersList,
@@ -16,15 +16,14 @@ import { useAppDispatch } from "app/providers/StoreProvider"
 import { useSelector } from "react-redux"
 import {
   getArticlesPageError,
-  getArticlesPageHasMore,
   getArticlesPageIsLoading,
-  getArticlesPageNum,
   getArticlesPageView,
 } from "../../model/selectors/articlesPageSelectors"
 import { Page } from "widgets/Page/Page"
 import { fetchNextArticlesPage } from "../../model/services/fetchNextArticlesPage/fetchNextArticlesPage"
 import { initArticlesPage } from "../../model/services/initArticlesPage/initArticlesPage"
 import { ArticlesPageFilters } from "../ArticlesPageFilters/ArticlesPageFilters"
+import { useSearchParams } from "react-router-dom"
 
 interface ArticlesPageProps {
   className?: string
@@ -39,16 +38,14 @@ const ArticlesPage = ({ className }: ArticlesPageProps) => {
   let articles = useSelector(getArticles.selectAll)
   let isLoading = useSelector(getArticlesPageIsLoading)
   let view = useSelector(getArticlesPageView)
-  let error = useSelector(getArticlesPageError)
-  let page = useSelector(getArticlesPageNum)
-  let hasMore = useSelector(getArticlesPageHasMore)
+  let [searchParams] = useSearchParams()
 
   let onLoadNextPart = useCallback(() => {
     dispatch(fetchNextArticlesPage())
   }, [dispatch])
 
   useInitialEffect(() => {
-    dispatch(initArticlesPage())
+    dispatch(initArticlesPage(searchParams))
   })
 
   return (
