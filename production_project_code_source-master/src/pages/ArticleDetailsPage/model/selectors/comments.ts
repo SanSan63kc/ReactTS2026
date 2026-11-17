@@ -1,4 +1,8 @@
-import { StateSchema } from "app/providers/StoreProvider";
+import { StateSchema } from "app/providers/StoreProvider"
 
-export let getArticleCommentsIsLoading=(state: StateSchema)=>state.articleDetailsComments?.isLoading
-export let getArticleCommentsError=(state: StateSchema)=>state.articleDetailsComments?.error
+export let getArticleCommentsIsLoading = (state: StateSchema) => {
+  return state.articleDetailsPage?.comments?.isLoading
+}
+export let getArticleCommentsError = (state: StateSchema) => {
+  return state.articleDetailsPage?.comments?.error
+}
