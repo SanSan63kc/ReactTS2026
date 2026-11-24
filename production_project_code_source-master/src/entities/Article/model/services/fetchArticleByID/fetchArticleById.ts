@@ -11,7 +11,11 @@ export let fetchArticleById = createAsyncThunk<
   let { extra, rejectWithValue } = thunkApi
 
   try {
-    let response = await extra.api.get<Article>(`/articles/${articleId}`)
+    let response = await extra.api.get<Article>(`/articles/${articleId}`, {
+      params: {
+        _expand: "user",
+      },
+    })
     return response.data
   } catch (e) {
     //console.log(e)

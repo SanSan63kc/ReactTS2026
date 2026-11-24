@@ -10,9 +10,7 @@ import {
   DynamicModuleLoader,
   ReducersList,
 } from "shared/lib/components/DynamicModuleLoader/DynamicModuleLoader"
-import {
-  getArticleComments,
-} from "../../model/slices/articleDetailsCommentSlice"
+import { getArticleComments } from "../../model/slices/articleDetailsCommentSlice"
 import { useSelector } from "react-redux"
 import { getArticleCommentsIsLoading } from "../../model/selectors/comments"
 import { useInitialEffect } from "shared/lib/hooks/useInitialEffect/useInitialEffect"
@@ -23,19 +21,18 @@ import { addCommentForArticle } from "../../model/services/addCommentForArticle/
 import { Button, ButtonTheme } from "shared/ui/Button/Button"
 import { RoutePath } from "shared/config/routerConfig/routeConfig"
 import { Page } from "widgets/Page/Page"
-import {
-  getArticleRecommendations,
-} from "../../model/slices/articleDetailsPageRecommendationsSlice"
+import { getArticleRecommendations } from "../../model/slices/articleDetailsPageRecommendationsSlice"
 import { getArticleRecommendationsIsLoading } from "../../model/selectors/recomendations"
 import { fetchArticleRecommendations } from "../../model/services/fetchArticleRecommendations/fetchArticleRecommendations"
 import { articleDetailsPageReducer } from "../../model/slices"
+import { ArticleDetailsPageHeader } from "../ArticleDetailsPageHeader/ArticleDetailsPageHeader"
 
 interface ArticleDetailsPageProps {
   className?: string
 }
 
 let reducers: ReducersList = {
-  articleDetailsPage: articleDetailsPageReducer
+  articleDetailsPage: articleDetailsPageReducer,
 }
 
 const ArticleDetailsPage = ({ className }: ArticleDetailsPageProps) => {
@@ -46,11 +43,6 @@ const ArticleDetailsPage = ({ className }: ArticleDetailsPageProps) => {
   let recommendations = useSelector(getArticleRecommendations.selectAll)
   let recommendationsIsLoading = useSelector(getArticleRecommendationsIsLoading)
   let dispatch = useAppDispatch()
-  let navigate = useNavigate()
-
-  let onBackToList = useCallback(() => {
-    navigate(RoutePath.articles)
-  }, [])
 
   let onSendComment = useCallback(
     (text: string) => {
@@ -79,16 +71,19 @@ const ArticleDetailsPage = ({ className }: ArticleDetailsPageProps) => {
       <Page
         className={classNames(cls.articleDetailsPage, {}, [className || ""])}
       >
-        <Button theme={ButtonTheme.OUTLINE} onClick={onBackToList}>
-          {t("Назад к списку")}
-        </Button>
+        <ArticleDetailsPageHeader />
         <ArticleDetails id={id} />
         <Text
           size={TextSize.L}
           className={cls.commentTitle}
           title={t("Рекомендуем")}
         />
-        <ArticleList className={cls.recommendations} articles={recommendations} isLoading={recommendationsIsLoading} target={"_blank"}/>
+        <ArticleList
+          className={cls.recommendations}
+          articles={recommendations}
+          isLoading={recommendationsIsLoading}
+          target={"_blank"}
+        />
         <Text
           size={TextSize.L}
           className={cls.commentTitle}
